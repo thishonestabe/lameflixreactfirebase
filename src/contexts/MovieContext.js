@@ -18,6 +18,13 @@ export default function MovieProvider({children}) {
                 setLoading(false)
             })
     }
+    function searchMovieTitle(title) {
+        axios.get(`https://api.themoviedb.org/3/search/movie?api_key=acb1f7cc631280f76384d486fc592d60&language=en-US&query=${title}&page=1&include_adult=false`)
+            .then(res => {
+                setTrendingMovies(res.data.results)
+                setLoading(false)
+            })
+    }
 
     useEffect(()=> {
         axios.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=acb1f7cc631280f76384d486fc592d60`)
@@ -33,7 +40,8 @@ export default function MovieProvider({children}) {
     const value = {
         trendingMovies,
         currentPage,
-        getTrending
+        getTrending,
+        searchMovieTitle
 
     }
     return (
