@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {Card, Button, Alert, Container, Row, Col, Modal} from 'react-bootstrap';
-
+import MovieProvider, {useMovie} from "../contexts/MovieContext";
 import axios from "axios";
 
 
 export default function Dashboard() {
     const [error, setError] = useState('');
-    const [trendingMovies, setTrendingMovies] = useState([])
+    //const [trendingMovies, setTrendingMovies] = useState([])
     const [show, setShow] = useState(false);
     const [modalInfo, setModalInfo] = useState({title: '', description: ''})
+    const { trendingMovies } = useMovie();
     const handleShow = (t, d) => {
         setModalInfo({title: t, description: d})
         return setShow(true)
@@ -16,14 +17,6 @@ export default function Dashboard() {
     const handleClose = () => setShow(false);
 
 
-    useEffect(()=> {
-        axios.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=acb1f7cc631280f76384d486fc592d60`)
-            .then(res => {
-                console.log(res.data.results);
-                setTrendingMovies(res.data.results);
-
-            })
-    }, [])
     let movieCards = trendingMovies.map((m,i) => {
             return (
                 <Col xs={12} md={6} lg={3} className={'mb-4'}>

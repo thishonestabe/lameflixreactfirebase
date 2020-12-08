@@ -7,6 +7,7 @@ import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Login from "./Login"
 import PrivateRoute from "./PrivateRoute";
+import MovieProvider from "../contexts/MovieContext";
 
 function App() {
   return (
@@ -17,12 +18,14 @@ function App() {
               <div className="w100" style={{maxWidth: '100vw'}}>
                   <Router>
                       <AuthProvider>
+                            <MovieProvider>
+                                <Switch>
+                                    <PrivateRoute exact path='/' component={Dashboard}/>
+                                    <Route path='/signup' component={Signup}/>
+                                    <Route path='/login' component={Login}/>
+                                </Switch>
+                            </MovieProvider>
 
-                              <Switch>
-                                  <PrivateRoute exact path='/' component={Dashboard}/>
-                                  <Route path='/signup' component={Signup}/>
-                                  <Route path='/login' component={Login}/>
-                              </Switch>
 
                       </AuthProvider>
                   </Router>

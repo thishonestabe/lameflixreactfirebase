@@ -8,7 +8,8 @@ import TrendingMovies from './TrendingMovies'
 
 export default function Dashboard() {
     const [error, setError] = useState('');
-    const { currentUser, logout } = useAuth()
+    const { currentUser, logout } = useAuth();
+
 
     const history = useHistory();
 
@@ -24,18 +25,20 @@ export default function Dashboard() {
 
     return (
         <>
-            <Navigation/>
 
-                <Card>
-                    <Card.Body>
-                        <h2 className={"text-center mb-4"}>Dashboard</h2>
 
-                        {error && <Alert variant={"danger"}>{error}</Alert>}
-                        <strong>Email: </strong>{currentUser.email}
-                    </Card.Body>
-                </Card>
-            <h2 className={"text-center mb-4"}>Trending Movies</h2>
-            <TrendingMovies />
+                <Navigation/>
+
+                    <Card>
+                        <Card.Body>
+                            <h2 className={"text-center mb-4"}>Dashboard</h2>
+
+                            {error && <Alert variant={"danger"}>{error}</Alert>}
+                            <strong>Email: </strong>{currentUser.email}
+                        </Card.Body>
+                    </Card>
+                <h2 className={"text-center mb-4"}>Trending Movies</h2>
+                <TrendingMovies />
 
 
 
