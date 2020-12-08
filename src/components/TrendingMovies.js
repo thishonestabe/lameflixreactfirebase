@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Card, Button, Alert, Container, Row, Col} from 'react-bootstrap';
+import {Card, Button, Alert, Container, Row, Col, Modal} from 'react-bootstrap';
 
 import axios from "axios";
 
@@ -7,6 +7,13 @@ import axios from "axios";
 export default function Dashboard() {
     const [error, setError] = useState('');
     const [trendingMovies, setTrendingMovies] = useState([])
+    const [show, setShow] = useState(false);
+    const [modalInfo, setModalInfo] = useState({title: '', description: ''})
+    const handleShow = (t, d) => {
+        setModalInfo({title: t, description: d})
+        return setShow(true)
+    };
+    const handleClose = () => setShow(false);
 
 
     useEffect(()=> {
@@ -30,15 +37,18 @@ export default function Dashboard() {
                                     <br/>
                                     Score: {m['vote_average']}
                                 </Card.Text>
-                                <Button variant="primary" className={'mr-2'}>Details</Button>
+                                <Button variant="primary" className={'mr-2'} onClick={() => handleShow(m.title, m.overview)}>Details</Button>
                                 <Button variant="danger">Rent</Button>
                             </Container>
 
                         </Card.Body>
                     </Card>
+
                 </Col>
             )
         })
+
+
 
     return (
         <>
@@ -49,6 +59,21 @@ export default function Dashboard() {
                 </Row>
 
             </Container>
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{modalInfo.title}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{modalInfo.description}</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="danger" onClick={handleClose}>
+                        Rent
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
 
         </>
