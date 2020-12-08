@@ -7,20 +7,23 @@ import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Login from "./Login"
 import PrivateRoute from "./PrivateRoute";
+
 function App() {
   return (
 
 
-          <Container className={"d-flex align-items-center justify-content-center"}
+          <Container className={"d-flex justify-content-center"}
                      style={{minHeight: "100vh"}}>
-              <div className="w100" style={{maxWidth: '400px'}}>
+              <div className="w100" style={{maxWidth: '100vw'}}>
                   <Router>
                       <AuthProvider>
-                          <Switch>
-                              <PrivateRoute exact path='/' component={Dashboard}/>
-                              <Route path='/signup' component={Signup}/>
-                              <Route path='/login' component={Login}/>
-                          </Switch>
+
+                              <Switch>
+                                  <PrivateRoute exact path='/' component={Dashboard}/>
+                                  <Route path='/signup' component={Signup}/>
+                                  <Route path='/login' component={Login}/>
+                              </Switch>
+
                       </AuthProvider>
                   </Router>
 

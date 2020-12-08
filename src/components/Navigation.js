@@ -18,21 +18,20 @@ export default function Navigation() {
     }
     return (
         <>
-            <Navbar bg="dark">
+            <Navbar style={{width: '100vw'}} bg="dark">
                 <Navbar.Brand href="#home">
-                    <img
-                        src="/logo.svg"
-                        width="30"
-                        height="30"
-                        className="d-inline-block align-top"
-                        alt="React Bootstrap logo"
-                    />
+                    <span style={{color: 'red'}}>LAMEFLIX</span>
                 </Navbar.Brand>
                 <Nav className={'mr-auto'}>
                     <Nav.Link >
                         <Button variant={'link'} onClick={handleLogout}>Log Out</Button>
                     </Nav.Link>
                 </Nav>
+                <Navbar.Collapse className="justify-content-end">
+                    <Navbar.Text style={{color: 'white'}}>
+                        Signed in as: {currentUser.email}
+                    </Navbar.Text>
+                </Navbar.Collapse>
             </Navbar>
 
         </>
