@@ -31,12 +31,13 @@ export default function Dashboard() {
 
                     <Card>
                         <Card.Body>
-                            <h2 className={"text-center mb-4"}>Dashboard</h2>
+                            <h2 className={"text-center mb-4"}>Welcome</h2>
 
                             {error && <Alert variant={"danger"}>{error}</Alert>}
-                            <strong>Email: </strong>{currentUser.email}
+
                         </Card.Body>
                     </Card>
+                <br/>
                 <h2 className={"text-center mb-4"}>Trending Movies</h2>
                 <TrendingMovies />
 
