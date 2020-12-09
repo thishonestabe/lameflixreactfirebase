@@ -10,7 +10,7 @@ export function useMovie() {
 
 export default function MovieProvider({children}) {
     const [trendingMovies, setTrendingMovies] = useState([]);
-    const [rentals, setRentals] = useState([]);
+    const [rentals, setRentals] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(true)
     function getTrending() {
@@ -31,12 +31,19 @@ export default function MovieProvider({children}) {
         let userId = auth.currentUser.uid
         const rentalRef = db.collection('rentals').doc(userId);
         const doc = await rentalRef.get();
-        setRentals(doc.rentals)
+
+
+
+        return doc.data()
     }
     async function rentMovie(id ,title) {
         let userId = auth.currentUser.uid
         let duedate = new Date();
+        let renteddate = new Date();
+        renteddate = renteddate.toString();
         duedate.setDate((duedate.getDate() + 7))
+        duedate = duedate.toString()
+        console.log(duedate)
         const rentalRef = db.collection('rentals').doc(userId);
         const doc = await rentalRef.get();
         if (!doc.exists) {
@@ -46,7 +53,7 @@ export default function MovieProvider({children}) {
                         {
                             id,
                             title,
-                            rented: new Date(),
+                            rented: renteddate,
                             due: duedate
                         }
                     ]
@@ -59,7 +66,7 @@ export default function MovieProvider({children}) {
                         {
                             id,
                             title,
-                            rented: new Date(),
+                            rented: renteddate,
                             due: duedate
                         }
                     ]
@@ -70,6 +77,7 @@ export default function MovieProvider({children}) {
     }
 
     useEffect(()=> {
+
         axios.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=acb1f7cc631280f76384d486fc592d60`)
             .then(res => {
                 console.log('res');
@@ -86,7 +94,8 @@ export default function MovieProvider({children}) {
         getTrending,
         searchMovieTitle,
         rentMovie,
-        getRentals
+        getRentals,
+        rentals,
 
     }
     return (

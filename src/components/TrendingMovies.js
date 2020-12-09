@@ -65,9 +65,7 @@ export default function Dashboard() {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="danger" onClick={handleClose}>
-                        Rent
-                    </Button>
+
                 </Modal.Footer>
             </Modal>
 
