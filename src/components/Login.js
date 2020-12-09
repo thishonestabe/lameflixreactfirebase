@@ -30,6 +30,7 @@ export default function Login() {
         <>
             <Container className={"d-flex align-content-center mt-5"}>
                 <div className="w100" style={{maxWidth: '100vw'}}>
+                    <h1 className={"text-center mb-4"}>LAMEFLIX</h1>
                 <Card>
                     <Card.Body>
                         <h2 className={"text-center mb-4"}>Login</h2>

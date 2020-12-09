@@ -14,7 +14,7 @@ export default function MovieProvider({children}) {
     function getTrending() {
         axios.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=acb1f7cc631280f76384d486fc592d60`)
             .then(res => {
-                console.log(res);
+                setTrendingMovies(res.data.results)
                 setLoading(false)
             })
     }

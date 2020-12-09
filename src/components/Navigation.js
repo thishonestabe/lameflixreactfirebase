@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-import {Navbar, Button, Nav} from 'react-bootstrap';
+import React, {useRef, useState} from 'react';
+import {Navbar, Button, Nav, Form} from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext'
 import { useHistory } from "react-router";
+import { useMovie } from '../contexts/MovieContext'
 
 export default function Navigation() {
     const [error, setError] = useState('');
-    const { currentUser, logout } = useAuth()
+    const searchRef = useRef();
+    const { currentUser, logout } = useAuth();
+    const { searchMovieTitle, getTrending } = useMovie();
     const history = useHistory();
     async function handleLogout() {
         setError('')
@@ -14,6 +17,20 @@ export default function Navigation() {
             history.push('./login')
         } catch {
             setError('Failed to logout')
+        }
+    }
+    async function handleSearch(title) {
+        setError('')
+
+        try {
+            if(!title) {
+               await getTrending()
+            } else {
+                await searchMovieTitle(title)
+            }
+
+        } catch {
+            setError('No movies found')
         }
     }
     return (
@@ -27,6 +44,12 @@ export default function Navigation() {
                         <Button variant={'link'} onClick={handleLogout}>Log Out</Button>
                     </Nav.Link>
                 </Nav>
+                <Form inline>
+                    <Form.Group id={"search"}>
+                    <Form.Control type="text" ref={searchRef}  placeholder="Search" className="mr-sm-2" />
+                    </Form.Group>
+                    <Button variant="outline-info" onClick={() => handleSearch(searchRef.current.value)}>Search</Button>
+                </Form>
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text style={{color: 'white'}}>
                         Signed in as: {currentUser.email}

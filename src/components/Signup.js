@@ -32,7 +32,8 @@ export default function Signup() {
     }
     return (
         <>
-            <Card className={'mt-5'}>
+            <h1 className={"text-center mt-5"}>LAMEFLIX</h1>
+            <Card >
                 <Card.Body>
                     <h2 className={"text-center mb-4"}>Sign Up</h2>
 
