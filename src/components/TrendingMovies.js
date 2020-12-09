@@ -9,12 +9,15 @@ export default function Dashboard() {
     //const [trendingMovies, setTrendingMovies] = useState([])
     const [show, setShow] = useState(false);
     const [modalInfo, setModalInfo] = useState({title: '', description: ''})
-    const { trendingMovies } = useMovie();
+    const { trendingMovies, rentMovie } = useMovie();
     const handleShow = (t, d) => {
         setModalInfo({title: t, description: d})
         return setShow(true)
     };
     const handleClose = () => setShow(false);
+    const handleRent = (id,t) => {
+        rentMovie(id,t);
+    }
 
 
     let movieCards = trendingMovies.map((m,i) => {
@@ -31,7 +34,7 @@ export default function Dashboard() {
                                     Score: {m['vote_average']}
                                 </Card.Text>
                                 <Button variant="primary" className={'mr-2'} onClick={() => handleShow(m.title, m.overview)}>Details</Button>
-                                <Button variant="danger">Rent</Button>
+                                <Button variant="danger" onClick={() => handleRent(m.id, m.title)}>Rent</Button>
                             </Container>
 
                         </Card.Body>

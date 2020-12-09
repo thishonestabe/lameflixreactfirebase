@@ -37,8 +37,8 @@ export default function Navigation() {
     return (
         <>
             <Navbar style={{width: '100vw'}} bg="dark">
-                <Navbar.Brand href="#home">
-                    <span style={{color: 'red'}}>LAMEFLIX</span>
+                <Navbar.Brand>
+                    <span ><Link style={{color: 'red'}} to={'/'}>LAMEFLIX</Link></span>
                 </Navbar.Brand>
                 <Nav className={'mr-auto'}>
                     <Nav.Link >

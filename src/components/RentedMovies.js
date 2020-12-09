@@ -7,14 +7,6 @@ import Navigation from "./Navigation";
 export default function Dashboard() {
     const [error, setError] = useState('');
 
-
-
-
-
-
-
-
-
     return (
         <>
             <Navigation/>

@@ -1,14 +1,16 @@
 import React, {useContext, useState, useEffect} from 'react';
 import axios from 'axios';
-
+import 'firebase/firestore';
+import app, {auth}  from '../firebase'
 const MovieContext = React.createContext();
-
+const db = app.firestore()
 export function useMovie() {
     return useContext(MovieContext)
 }
 
 export default function MovieProvider({children}) {
     const [trendingMovies, setTrendingMovies] = useState([]);
+    const [rentals, setRentals] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(true)
     function getTrending() {
@@ -24,6 +26,47 @@ export default function MovieProvider({children}) {
                 setTrendingMovies(res.data.results)
                 setLoading(false)
             })
+    }
+    async function getRentals() {
+        let userId = auth.currentUser.uid
+        const rentalRef = db.collection('rentals').doc(userId);
+        const doc = await rentalRef.get();
+        setRentals(doc.rentals)
+    }
+    async function rentMovie(id ,title) {
+        let userId = auth.currentUser.uid
+        let duedate = new Date();
+        duedate.setDate((duedate.getDate() + 7))
+        const rentalRef = db.collection('rentals').doc(userId);
+        const doc = await rentalRef.get();
+        if (!doc.exists) {
+            return db.collection('rentals').doc(userId).set(
+                {
+                    rentals: [
+                        {
+                            id,
+                            title,
+                            rented: new Date(),
+                            due: duedate
+                        }
+                    ]
+
+                })
+        } else {
+            return db.collection('rentals').doc(userId).set(
+                {
+                    rentals: [ ...doc.data().rentals,
+                        {
+                            id,
+                            title,
+                            rented: new Date(),
+                            due: duedate
+                        }
+                    ]
+
+                })
+        }
+
     }
 
     useEffect(()=> {
@@ -41,7 +84,9 @@ export default function MovieProvider({children}) {
         trendingMovies,
         currentPage,
         getTrending,
-        searchMovieTitle
+        searchMovieTitle,
+        rentMovie,
+        getRentals
 
     }
     return (
