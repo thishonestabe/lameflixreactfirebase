@@ -2,7 +2,8 @@ import React, {useRef, useState} from 'react';
 import {Navbar, Button, Nav, Form} from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext'
 import { useHistory } from "react-router";
-import { useMovie } from '../contexts/MovieContext'
+import { useMovie } from '../contexts/MovieContext';
+import { Link } from 'react-router-dom';
 
 export default function Navigation() {
     const [error, setError] = useState('');
@@ -42,6 +43,9 @@ export default function Navigation() {
                 <Nav className={'mr-auto'}>
                     <Nav.Link >
                         <Button variant={'link'} onClick={handleLogout}>Log Out</Button>
+                    </Nav.Link>
+                    <Nav.Link >
+                        <Button variant={'link'}><Link to={'/mymovies'}>My Movies</Link></Button>
                     </Nav.Link>
                 </Nav>
                 <Form inline>

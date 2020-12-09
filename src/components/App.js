@@ -8,6 +8,7 @@ import Dashboard from "./Dashboard";
 import Login from "./Login"
 import PrivateRoute from "./PrivateRoute";
 import MovieProvider from "../contexts/MovieContext";
+import RentedMovies from "./RentedMovies";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                                     <PrivateRoute exact path='/' component={Dashboard}/>
                                     <Route path='/signup' component={Signup}/>
                                     <Route path='/login' component={Login}/>
+                                    <Route path='/mymovies' component={RentedMovies}/>
                                 </Switch>
                             </MovieProvider>
 
